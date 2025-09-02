@@ -198,7 +198,7 @@
     <!-- En-tête officiel -->
     <div class="header">
         <img src="{{ public_path('images/logogendarmerie.jpg') }}" alt="Logo Gendarmerie" class="logo">
-        <h1>République Française</h1>
+        <h1>République Du Sénégal</h1>
         <h2>Gendarmerie Nationale</h2>
         <h2>Demande d'Escorte Officielle</h2>
     </div>
