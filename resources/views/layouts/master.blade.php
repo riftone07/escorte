@@ -441,7 +441,6 @@
         }
 
         .contact-info {
-            background: white;
             border: 1px solid var(--gray-200);
             border-radius: 16px;
             padding: 48px;
@@ -864,8 +863,14 @@
             align-items: center;
         }
 
+        .brand-text-container {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
         .brand-text {
-            font-size: 1.4rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--primary);
             margin-left: 8px;
@@ -1239,7 +1244,11 @@
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
                 <img src="{{ asset("images/logogendarmerie.jpg") }}" width="50" alt="Gendarmerie Logo" class="me-2">
-                <span class="brand-text">GENDARMERIE</span>
+                <img src="{{ asset("images/Flag_of_Senegal.svg") }}" width="50" alt="Gendarmerie Logo" class="me-2">
+                <div class="brand-text-container">
+                    <div class="brand-text">GENDARMERIE</div>
+                    <div class="brand-text">NATIONALE</div>
+                </div>
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
