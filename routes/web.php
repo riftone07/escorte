@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VersionController;
 use App\Http\Controllers\EscortRequestController;
+use App\Http\Controllers\Admin\EscortRequestController as AdminEscortRequestController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,5 +34,11 @@ Route::group(['prefix' => 'admin','as' => 'admin.','middleware' => ['auth:sanctu
     Route::get('versions/edit', [VersionController::class, 'edit'])->name('versions.edit');
     Route::put('versions', [VersionController::class, 'update'])->name('versions.update');
     Route::delete('versions', [VersionController::class, 'destroy'])->name('versions.destroy');
+
+    // Routes pour la gestion des demandes d'escorte (backend)
+    Route::resource('escort-requests', AdminEscortRequestController::class);
+    Route::get('escort-requests/{escortRequest}/download', [AdminEscortRequestController::class, 'downloadDocument'])->name('escort-requests.download');
+    Route::get('escort-requests/{escortRequest}/pdf', [AdminEscortRequestController::class, 'generatePdf'])->name('escort-requests.pdf');
+    Route::patch('escort-requests/{escortRequest}/status', [AdminEscortRequestController::class, 'updateStatus'])->name('escort-requests.update-status');
 
 });

@@ -125,4 +125,14 @@ class EscortRequest extends Model
 
         return $types[$this->type_escorte] ?? $this->type_escorte;
     }
+
+    public static function generateUniqueRequestNumber()
+    {
+        do {
+            $numero = 'ESC-' . date('Y') . '-' . str_pad(rand(1, 9999), 4, '0', STR_PAD_LEFT);
+        } while (self::where('numero_demande', $numero)->exists());
+        
+        return $numero;
+    }
+
 }

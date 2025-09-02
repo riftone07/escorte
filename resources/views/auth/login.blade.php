@@ -1,48 +1,110 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+@extends('auth.app')
 
-        <x-validation-errors class="mb-4" />
+@section('content')
 
-        @session('status')
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ $value }}
-            </div>
-        @endsession
-
-        <form method="POST" action="{{ route('login') }}">
+<div class="w-full md:w-1/2 flex flex-col justify-center items-center p-8 md:p-16">
+    <div class="w-full max-w-md form-container p-8 rounded-xl">
+        <div class="mb-8 flex items-center">
+            <img src="{{ asset('images/logogendarmerie.jpg') }}" alt="Gendarmerie Logo" class="w-32 mr-3">
+        </div>
+        
+        <h2 class="text-3xl font-bold text-gray-900 mb-6">Connexion Administrateur</h2>
+        <p class="text-gray-600 mb-8">Accès sécurisé à la plateforme de gestion des demandes d'escorte.</p>
+        
+        <!-- Laravel Form -->
+        <form method="POST" action="{{ route('login') ?? '#' }}" class="space-y-6">
             @csrf
-
+            
+            <!-- Email Field -->
             <div>
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-            </div>
-
-            <div class="block mt-4">
-                <label for="remember_me" class="flex items-center">
-                    <x-checkbox id="remember_me" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
+                <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Adresse e-mail</label>
+                <div class="relative">
+                    <i class="fas fa-envelope absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        value="{{ old('email') ?? '' }}"
+                        placeholder="admin@gendarmerie.sn"
+                        class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg input-focus transition-all"
+                        required
+                    >
+                </div>
+                @if(isset($errors))
+                    @error('email')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 @endif
-
-                <x-button class="ms-4">
-                    {{ __('Log in') }}
-                </x-button>
             </div>
+
+            <!-- Password Field -->
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Mot de passe</label>
+                <div class="relative">
+                    <i class="fas fa-lock absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password"
+                        placeholder="Votre mot de passe sécurisé"
+                        class="w-full pl-12 pr-12 py-3 border border-gray-300 rounded-lg input-focus transition-all"
+                        required
+                    >
+                    <button 
+                        type="button" 
+                        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        onclick="togglePassword()"
+                    >
+                        <i class="fas fa-eye" id="toggleIcon"></i>
+                    </button>
+                </div>
+                @if(isset($errors))
+                    @error('password')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                @endif
+            </div>
+
+            <!-- Remember Me & Forgot Password -->
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <input 
+                        type="checkbox" 
+                        id="remember" 
+                        name="remember"
+                        class="w-4 h-4 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500"
+                    >
+                    <label for="remember" class="ml-2 text-sm text-gray-600">Se souvenir de moi</label>
+                </div>
+                <a href="{{ route('password.request') ?? '#' }}" class="text-sm text-[#003366] hover:text-[#002244] transition-colors">
+                    Mot de passe oublié ?
+                </a>
+            </div>
+
+            <!-- Login Button -->
+            <button 
+                type="submit" 
+                class="w-full btn-primary text-white py-3 rounded-lg font-semibold"
+            >
+                Se connecter
+            </button>
         </form>
-    </x-authentication-card>
-</x-guest-layout>
+
+        <!-- Info Section -->
+        <div class="mt-8 text-center">
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                <p class="text-blue-800 text-sm mb-0">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    Accès réservé au personnel autorisé de la Gendarmerie Nationale
+                </p>
+            </div>
+            <a href="{{ url('/') }}" class="text-[#003366] hover:text-[#002244] text-sm transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Retour à l'accueil
+            </a>
+        </div>
+    </div>
+</div>
+
+
+@endsection

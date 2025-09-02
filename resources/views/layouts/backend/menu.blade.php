@@ -8,6 +8,21 @@
 </a>
 @endcan
 
+<!-- Demandes d'escorte Section -->
+<div class="nav-section">
+    <div class="nav-section-header">
+        <span>Demandes d'escorte</span>
+    </div>
+    @can('admin.escort-requests.index')
+    <a href="{{ route('admin.escort-requests.index') }}" class="nav-item {{ request()->routeIs('admin.escort-requests.*') ? 'active' : '' }}">
+        <span class="nav-icon">
+            <i class="bi bi-shield-check"></i>
+        </span>
+        <span class="nav-text">Demandes</span>
+    </a>
+    @endcan
+</div>
+
 <!-- Paramètres Section -->
 <div class="nav-section derniersection">
     <div class="nav-section-header">
