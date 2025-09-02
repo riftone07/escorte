@@ -246,7 +246,7 @@
                 <div class="col-lg-6">
                     <div class="map-placeholder">
                     <span>
-                        <img src="{{ asset("images/contact.jpg") }}" alt="Gendarmerie Nationale" width="100%" class="img-fluid rounded">
+                        <img src="{{ asset('images/bg-hero.jpeg') }}" alt="Gendarmerie Nationale" width="100%" class="img-fluid rounded">
                     </span>
                     </div>
                 </div>
